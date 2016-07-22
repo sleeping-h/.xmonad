@@ -1,14 +1,12 @@
 Config { 
-    font = "xft:Droid Sans Mono:size=9:bold:antialias=true"
+    font = "xft:DejaVu Sans Mono:size=9:bold:antialias=true"
     bgColor = "#000000",
     fgColor = "#ffffff",
     position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
     lowerOnStart = True,
     commands = [
-	     Run Weather "UUDD" ["-t","<tempC>°C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-        ,Run Memory ["-t","<used>/<total>M (<cache>M)","-H","8192","-L","4096","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC"] 10        
-        ,Run DynNetwork [
-             "-t"    ,"<dev> rx:<rx>, tx:<tx>"
+         Run DynNetwork [
+             "-t"    ,"<dev>"
             ,"-H"   ,"200"
             ,"-L"   ,"10"
             ,"-h"   ,"#FFB6B0"
@@ -28,17 +26,16 @@ Config {
             , "-c"         , " "
             , "-w"         , "3"
         ] 10
-        ,Run PipeReader "/tmp/.volume-pipe" "vol"
-        ,Run CoreTemp [ "--template" , "<core0> <core1> <core2> <core3> <core4>°C"
-            , "--Low"      , "70"        -- units: °C
-            , "--High"     , "80"        -- units: °C
-            , "--low"      , "darkgreen"
-            , "--normal"   , "darkorange"
-            , "--high"     , "darkred"
-        ] 50
+        ,Run Battery [ "--template" , "Batt: <left>%"
+                     , "--Low"      , "15"        -- units: %
+                     , "--High"     , "70"        -- units: %
+                     , "--low"      , "#ef5880"
+                     , "--normal"   , "#c06aeb"
+                     , "--high"     , "#b0d2ff" 
+                     ] 10
         ,Run StdinReader
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{ <icon=/home/tolkv/.sysgit/dzen/bitmaps/music.xbm/> %vol% | %coretemp% | %multicpu% | %memory%  | %dynnetwork% | %UUDD% | <fc=#FFFFCC>%date%</fc>   "
+    template = " %StdinReader% }{ %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
 }

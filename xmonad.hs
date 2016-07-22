@@ -54,9 +54,9 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
 
 defaults = defaultConfig {
-        terminal      = "tilda"
+        terminal      = "konsole"
         , normalBorderColor  = "black"
-        , focusedBorderColor  = "#dddddd"        
+        , focusedBorderColor  = "#b0d2ff"        
         , workspaces          = myWorkspaces
         , modMask             = mod4Mask
         , borderWidth         = 2
@@ -66,7 +66,7 @@ defaults = defaultConfig {
 	}`additionalKeys` myKeys
 
 myWorkspaces :: [String]
-myWorkspaces =  ["1:web","2:dev","3:term","4:vm","5:media"] ++ map show [6..9]
+myWorkspaces =  ["1:term","2:web","3:dev","4:media","5:vm"] ++ map show [6..9]
 
 -- tab theme default
 myTabConfig = defaultTheme {
@@ -74,7 +74,7 @@ myTabConfig = defaultTheme {
   , activeBorderColor   = "#000000"
   , inactiveColor       = "#666666"
   , inactiveBorderColor = "#000000"
-  , decoHeight          = 10
+  , decoHeight          = 5
  }
 
 -- Color of current window title in xmobar.
@@ -84,27 +84,26 @@ xmobarTitleColor = "#b0d2ff"
 xmobarCurrentWorkspaceColor = "#b0d2ff"
 
 myLayoutHook = spacing 6 $ gaps [(U,15)] $ toggleLayouts (noBorders Full) $
-    smartBorders $ Mirror tiled ||| mosaic 2 [3,2]  ||| tabbed shrinkText myTabConfig
-      where 
-        tiled = Tall nmaster delta ratio
-        nmaster = 1
-        delta   = 3/100
-        ratio   = 3/5
-                         
+  smartBorders $ (tiled ||| Mirror tiled ||| tabbed shrinkText myTabConfig)
+  where
+    tiled = Tall nmaster delta ratio
+    nmaster = 1
+    delta = 3/100
+    ratio = 1/2
                               
 myManageHook :: ManageHook
 	
 myManageHook = composeAll . concat $
-	[ [className =? c --> doF (W.shift "1:web")	| c <- myWeb]
-	, [className =? c --> doF (W.shift "2:dev")	| c <- myDev]
-	, [className =? c --> doF (W.shift "3:term")	| c <- myTerm]
-	, [className =? c --> doF (W.shift "4:vm")	| c <- myVMs]
+	[ [className =? c --> doF (W.shift "2:web")	| c <- myWeb]
+	, [className =? c --> doF (W.shift "3:dev")	| c <- myDev]
+	, [className =? c --> doF (W.shift "1:term")	| c <- myTerm]
+	, [className =? c --> doF (W.shift "5:vm")	| c <- myVMs]
 	, [manageDocks]
 	]
 	where
-	myWeb = ["Firefox","Chromium","Chrome"]
-	myDev = ["Eclipse","Gedit","sublime-text"]
-	myTerm = ["konsole","xterm"]
+	myWeb = ["Chromium"]
+	myDev = ["kate","vim","sublime-text"]
+	myTerm = ["konsole","xterm","tilda"]
 	myVMs = ["VirtualBox"]
 	
 	--KP_Add KP_Subtract
@@ -132,6 +131,7 @@ main = do
               "Spacing 6 Mirror Tall"                 -> "[M]"
               "Spacing 6 Hinted Tabbed Simplest"      -> "[T]"
               "Spacing 6 Full"                        -> "[ ]"
+              "Spacing 6 Tall"                        -> "[|]"
               _                                       -> x )
           , ppHiddenNoWindows = showNamedWorkspaces
       } 
