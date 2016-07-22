@@ -66,7 +66,7 @@ defaults = defaultConfig {
 	}`additionalKeys` myKeys
 
 myWorkspaces :: [String]
-myWorkspaces =  ["1:term","2:web","3:dev","4:media","5:vm"] ++ map show [6..9]
+myWorkspaces =  ["1:term","2:code","3:www","4:misc","5:vm"] ++ map show [6..9]
 
 -- tab theme default
 myTabConfig = defaultTheme {
@@ -74,7 +74,7 @@ myTabConfig = defaultTheme {
   , activeBorderColor   = "#000000"
   , inactiveColor       = "#666666"
   , inactiveBorderColor = "#000000"
-  , decoHeight          = 5
+  , decoHeight          = 10
  }
 
 -- Color of current window title in xmobar.
@@ -94,8 +94,8 @@ myLayoutHook = spacing 6 $ gaps [(U,15)] $ toggleLayouts (noBorders Full) $
 myManageHook :: ManageHook
 	
 myManageHook = composeAll . concat $
-	[ [className =? c --> doF (W.shift "2:web")	| c <- myWeb]
-	, [className =? c --> doF (W.shift "3:dev")	| c <- myDev]
+	[ [className =? c --> doF (W.shift "3:www")	| c <- myWeb]
+	, [className =? c --> doF (W.shift "2:code")	| c <- myDev]
 	, [className =? c --> doF (W.shift "1:term")	| c <- myTerm]
 	, [className =? c --> doF (W.shift "5:vm")	| c <- myVMs]
 	, [manageDocks]
@@ -125,13 +125,13 @@ main = do
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
           , ppSep = "   "
-          , ppWsSep = " "
+          , ppWsSep = "  "
           , ppLayout  = (\ x -> case x of
               "Spacing 6 Mosaic"                      -> "[:]"
               "Spacing 6 Mirror Tall"                 -> "[M]"
-              "Spacing 6 Hinted Tabbed Simplest"      -> "[T]"
+              "Spacing 6 Hinted Tabbed Simplest"      -> "[|]"
               "Spacing 6 Full"                        -> "[ ]"
-              "Spacing 6 Tall"                        -> "[|]"
+              "Spacing 6 Tall"                        -> "[T]"
               _                                       -> x )
           , ppHiddenNoWindows = showNamedWorkspaces
       } 

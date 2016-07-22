@@ -26,6 +26,7 @@ Config {
             , "-c"         , " "
             , "-w"         , "3"
         ] 10
+        ,Run PipeReader "/tmp/.volume-pipe" "vol"
         ,Run Battery [ "--template" , "Batt: <left>%"
                      , "--Low"      , "15"        -- units: %
                      , "--High"     , "70"        -- units: %
@@ -37,5 +38,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{ %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
+    template = " %StdinReader% }{ %vol% | %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
 }
