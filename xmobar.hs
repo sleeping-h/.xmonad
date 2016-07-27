@@ -1,6 +1,6 @@
 Config { 
     font = "xft:DejaVu Sans Mono:size=9:bold:antialias=true"
-    bgColor = "#000000",
+    bgColor = "#252525",
     fgColor = "#ffffff",
     position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
     lowerOnStart = True,
@@ -34,9 +34,10 @@ Config {
                      , "--normal"   , "#c06aeb"
                      , "--high"     , "#b0d2ff" 
                      ] 10
+        ,Run Kbd [("ru", "ru"), ("us", "us")]
         ,Run StdinReader
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{ %vol% | %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
+    template = " %StdinReader% }{ %kbd% | %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
 }

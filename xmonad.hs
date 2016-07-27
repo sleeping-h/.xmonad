@@ -56,12 +56,13 @@ import XMonad.Hooks.SetWMName
 defaults = defaultConfig {
         terminal      = "konsole"
         , normalBorderColor  = "black"
-        , focusedBorderColor  = "#b0d2ff"        
+        , focusedBorderColor  = myBlue        
         , workspaces          = myWorkspaces
         , modMask             = mod4Mask
         , borderWidth         = 2
+        , startupHook         = myStartupHook
         , layoutHook          = myLayoutHook
-        , manageHook          = myManageHook
+--      , manageHook          = myManageHook
         , handleEventHook     = fullscreenEventHook
 	}`additionalKeys` myKeys
 
@@ -70,49 +71,40 @@ myWorkspaces =  ["1:term","2:code","3:www","4:misc","5:vm"] ++ map show [6..9]
 
 -- tab theme default
 myTabConfig = defaultTheme {
-   activeColor          = "#6666cc"
+   activeColor          = myBlue
   , activeBorderColor   = "#000000"
   , inactiveColor       = "#666666"
   , inactiveBorderColor = "#000000"
   , decoHeight          = 10
  }
 
+myBlue = "#b0d2ff"
+
 -- Color of current window title in xmobar.
-xmobarTitleColor = "#b0d2ff"
+xmobarTitleColor = myBlue
 
 -- Color of current workspace in xmobar.
-xmobarCurrentWorkspaceColor = "#b0d2ff"
+xmobarCurrentWorkspaceColor = myBlue
 
-myLayoutHook = spacing 6 $ gaps [(U,15)] $ toggleLayouts (noBorders Full) $
-  smartBorders $ (tiled ||| Mirror tiled ||| tabbed shrinkText myTabConfig)
+myStartupHook :: X ()
+
+myStartupHook = do
+    spawn "/usr/bin/feh  --bg-fill ~/.xmonad/wallpaper.jpg"
+
+myLayoutHook = tiled ||| Mirror tiled ||| Full
   where
-    tiled = Tall nmaster delta ratio
+    tiled = spacing 5 $ gaps [(U,15)] $ Tall nmaster delta ratio
     nmaster = 1
     delta = 3/100
     ratio = 1/2
                               
-myManageHook :: ManageHook
 	
-myManageHook = composeAll . concat $
-	[ [className =? c --> doF (W.shift "3:www")	| c <- myWeb]
-	, [className =? c --> doF (W.shift "2:code")	| c <- myDev]
-	, [className =? c --> doF (W.shift "1:term")	| c <- myTerm]
-	, [className =? c --> doF (W.shift "5:vm")	| c <- myVMs]
-	, [manageDocks]
-	]
-	where
-	myWeb = ["Chromium"]
-	myDev = ["kate","vim","sublime-text"]
-	myTerm = ["konsole","xterm","tilda"]
-	myVMs = ["VirtualBox"]
-	
-	--KP_Add KP_Subtract
 myKeys = [
            ((mod4Mask, xK_Right), nextScreen) 
          , ((mod4Mask .|. controlMask, xK_Left ), prevScreen)
-         , ((mod4Mask, xK_g), goToSelected defaultGSConfig)
-	 , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 10%+ && ~/.xmonad/getvolume.sh >> /tmp/.volume-pipe")
-	 , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 10%- && ~/.xmonad/getvolume.sh >> /tmp/.volume-pipe")
+	 , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 10%+")
+	 , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 10%-")
+         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
          ]
                    
 
@@ -124,15 +116,9 @@ main = do
             ppOutput = System.IO.hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
-          , ppSep = "   "
-          , ppWsSep = "  "
-          , ppLayout  = (\ x -> case x of
-              "Spacing 6 Mosaic"                      -> "[:]"
-              "Spacing 6 Mirror Tall"                 -> "[M]"
-              "Spacing 6 Hinted Tabbed Simplest"      -> "[|]"
-              "Spacing 6 Full"                        -> "[ ]"
-              "Spacing 6 Tall"                        -> "[T]"
-              _                                       -> x )
+          , ppSep = "  "
+          , ppWsSep = " "
+          , ppLayout = \_ -> ""
           , ppHiddenNoWindows = showNamedWorkspaces
       } 
 } where showNamedWorkspaces wsId = if any (`elem` wsId) ['a'..'z']
