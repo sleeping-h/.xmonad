@@ -1,6 +1,7 @@
 Config { 
-    font = "xft:DejaVu Sans Mono:size=9:bold:antialias=true"
+    font = "xft:DejaVu Sans Mono:size=9:book"--:antialias=true"
     bgColor = "#252525",
+--    alpha = 150,
     fgColor = "#ffffff",
     position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
     lowerOnStart = True,
@@ -9,9 +10,9 @@ Config {
              "-t"    ,"<dev>"
             ,"-H"   ,"200"
             ,"-L"   ,"10"
-            ,"-h"   ,"#FFB6B0"
-            ,"-l"   ,"#CEFFAC"
-            ,"-n"   ,"#FFFFCC"
+            ,"-h"   , "#b0d2ff"
+            ,"-l"   , "#ef5880"
+            ,"-n"   , "#c06aeb"
             , "-c"  , " "
             , "-w"  , "2"
             , "-S"  , "True"
@@ -20,9 +21,9 @@ Config {
         ,Run MultiCpu [ "--template" , "<autototal>"
             , "--Low"      , "50"         -- units: %
             , "--High"     , "85"         -- units: %
-            , "--low"      , "gray"
-            , "--normal"   , "darkorange"
-            , "--high"     , "darkred"
+            , "--low"      , "#555555"
+            , "--normal"   , "#c06aeb"
+            , "--high"     , "#ef5880"
             , "-c"         , " "
             , "-w"         , "3"
         ] 10
@@ -32,12 +33,13 @@ Config {
                      , "--High"     , "70"        -- units: %
                      , "--low"      , "#ef5880"
                      , "--normal"   , "#c06aeb"
-                     , "--high"     , "#b0d2ff" 
+                     , "--high"     , "#b0d2ff"
                      ] 10
-        ,Run Kbd [("ru", "ru"), ("us", "us")]
+        ,Run Kbd [("ru", "ru"), ("us", "en")]
         ,Run StdinReader
     ],
     sepChar = "%",
     alignSep = "}{",
     template = " %StdinReader% }{ %kbd% | %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
 }
+

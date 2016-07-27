@@ -52,6 +52,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Gaps
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.FadeInactive
 
 defaults = defaultConfig {
         terminal      = "konsole"
@@ -59,24 +60,20 @@ defaults = defaultConfig {
         , focusedBorderColor  = myBlue        
         , workspaces          = myWorkspaces
         , modMask             = mod4Mask
-        , borderWidth         = 2
+        , borderWidth         = 0
         , startupHook         = myStartupHook
+        , logHook             = myLogHook
         , layoutHook          = myLayoutHook
---      , manageHook          = myManageHook
         , handleEventHook     = fullscreenEventHook
 	}`additionalKeys` myKeys
 
-myWorkspaces :: [String]
-myWorkspaces =  ["1:term","2:code","3:www","4:misc","5:vm"] ++ map show [6..9]
+myLogHook :: X ()
+myLogHook = fadeInactiveLogHook fadeAmount
+    where fadeAmount = 0.8
 
--- tab theme default
-myTabConfig = defaultTheme {
-   activeColor          = myBlue
-  , activeBorderColor   = "#000000"
-  , inactiveColor       = "#666666"
-  , inactiveBorderColor = "#000000"
-  , decoHeight          = 10
- }
+myWorkspaces :: [String]
+
+myWorkspaces =  ["1:term","2:code","3:www","4:misc","5:vm"] ++ map show [6..9]
 
 myBlue = "#b0d2ff"
 
@@ -89,7 +86,7 @@ xmobarCurrentWorkspaceColor = myBlue
 myStartupHook :: X ()
 
 myStartupHook = do
-    spawn "/usr/bin/feh  --bg-fill ~/.xmonad/wallpaper.jpg"
+    spawn "bash ~/.xmonad/startup.sh"
 
 myLayoutHook = tiled ||| Mirror tiled ||| Full
   where
