@@ -1,8 +1,6 @@
-Config = {
-    font = "xft:DejaVu Sans Mono:size=9",
---    font = "-*-montecarlo-medium-r-normal-*-11-*-*-*-c-*-*-*",
+Config { 
+    font = "xft:DejaVu Sans Mono:size=9:book:antialias=true",
     bgColor = "#202034",
-    --alpha = 150,
     fgColor = "#eeeeee",
     position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
     lowerOnStart = True,
