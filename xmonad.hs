@@ -55,25 +55,22 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.FadeInactive
 
 defaults = defaultConfig {
-        terminal      = "konsole"
-        , normalBorderColor  = "black"
-        , focusedBorderColor  = myBlue        
+        terminal              = "konsole"
+        , normalBorderColor   = "#202034"
+        , focusedBorderColor  = "#6385aa"        
         , workspaces          = myWorkspaces
         , modMask             = mod4Mask
-        , borderWidth         = 0
         , startupHook         = myStartupHook
-        , logHook             = myLogHook
         , layoutHook          = myLayoutHook
+        , borderWidth         = 0 
         , handleEventHook     = fullscreenEventHook
 	}`additionalKeys` myKeys
 
-myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.8
 
 myWorkspaces :: [String]
 
-myWorkspaces =  ["1:term","2:code","3:www","4:misc","5:vm"] ++ map show [6..9]
+myWorkspaces =  ["one","two","three","four","five"] ++ map show [6..9]
+
 
 myBlue = "#b0d2ff"
 
@@ -85,23 +82,22 @@ xmobarCurrentWorkspaceColor = myBlue
 
 myStartupHook :: X ()
 
-myStartupHook = do
-    spawn "bash ~/.xmonad/startup.sh"
+myStartupHook = spawn "bash ~/.xmonad/startup.sh"
 
 myLayoutHook = tiled ||| Mirror tiled ||| Full
   where
-    tiled = spacing 5 $ gaps [(U,15)] $ Tall nmaster delta ratio
+    tiled = smartBorders $ gaps [(U,15)] $ Tall nmaster delta ratio 
     nmaster = 1
     delta = 3/100
     ratio = 1/2
                               
 	
 myKeys = [
-           ((mod4Mask, xK_Right), nextScreen) 
-         , ((mod4Mask .|. controlMask, xK_Left ), prevScreen)
-	 , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 10%+")
-	 , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 10%-")
-         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
+          ((mod4Mask, xK_Right), nextScreen) 
+        , ((mod4Mask .|. controlMask, xK_Left ), prevScreen)
+	    , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 3%+")
+	    , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 3%-")
+        , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
          ]
                    
 
@@ -112,11 +108,11 @@ main = do
 	logHook =  dynamicLogWithPP $ defaultPP {
             ppOutput = System.IO.hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
+          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "" ""
           , ppSep = "  "
-          , ppWsSep = " "
+          , ppWsSep = "  "
           , ppLayout = \_ -> ""
-          , ppHiddenNoWindows = showNamedWorkspaces
+         -- , ppHiddenNoWindows = showNamedWorkspaces
       } 
 } where showNamedWorkspaces wsId = if any (`elem` wsId) ['a'..'z']
                                        then pad wsId
