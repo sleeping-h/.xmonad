@@ -100,8 +100,10 @@ myKeys = [
         , ((mod4Mask, xK_Left), moveTo Prev NonEmptyWS)
         , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS) 
         , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
-	    , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 3%+")
-	    , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 3%-")
+	    , ((mod4Mask, xK_F9), spawn "amixer set Master 3%+")
+	    , ((mod4Mask, xK_F8), spawn "amixer set Master 3%-")
+	    , ((mod4Mask, xK_F3), spawn "xbacklight -inc 10")
+	    , ((mod4Mask, xK_F2), spawn "xbacklight -dec 10")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
          ]
 
