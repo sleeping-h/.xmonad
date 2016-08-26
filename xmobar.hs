@@ -7,14 +7,9 @@ Config {
     commands = [
          Run DynNetwork [
              "-t"    ,"<dev>"
-            ,"-H"   ,"200"
-            ,"-L"   ,"10"
-            ,"-h"   , "#b0d2ff"
-            ,"-l"   , "#ef5880"
-            ,"-n"   , "#c06aeb"
-            , "-c"  , " "
-            , "-w"  , "2"
-            , "-S"  , "True"
+--            , "-c"  , " "
+  --          , "-w"  , "2"
+    --        , "-S"  , "True"
             ] 10
         ,Run Date "%Y.%m.%d %H:%M:%S" "date" 10
         ,Run MultiCpu [ "--template" , "<autototal>"
@@ -27,13 +22,7 @@ Config {
             , "-w"         , "3"
         ] 10
         ,Run Com "bash" ["-c", ".xmonad/getvolume.sh"] "vol" 10
-        ,Run Battery [ "--template" , "<fc=#000000><icon=~/.xmonad/icons/text.xbm/></fc> Batt: <left>%"
-                     , "--Low"      , "15"        -- units: %
-                     , "--High"     , "50"        -- units: %
-                     , "--low"      , "#ef5880"
-                     , "--normal"   , "#c06aeb"
-                     , "--high"     , "#b0d2ff"
-                     ] 10
+        ,Run Com "bash" ["-c", ".xmonad/battery.sh"] "battery" 10
         ,Run Kbd [("ru", "ru"), ("us", "en")]
         ,Run StdinReader
     ],
