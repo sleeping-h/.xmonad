@@ -28,6 +28,6 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{  %kbd% | %vol% | %multicpu% | %dynnetwork% | %battery% | <fc=#b0d2ff>%date%</fc> "
+    template = " %StdinReader% }{ <fc=#b0d2ff>%kbd%</fc>  %vol% %multicpu%  (%dynnetwork%)  %battery%  <fc=#b0d2ff>%date%</fc> "
 }
 

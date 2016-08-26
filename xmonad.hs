@@ -18,7 +18,7 @@ import XMonad.Prompt.Shell
 import XMonad.Actions.MouseGestures
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.GridSelect
- 
+import XMonad.Actions.CycleWS
 -- Utils
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Loggers
@@ -71,7 +71,6 @@ myWorkspaces :: [String]
 
 myWorkspaces =  ["one","two","three","four","five"] ++ map show [6..9]
 
-
 myBlue = "#b0d2ff"
 
 -- Color of current window title in xmobar.
@@ -90,11 +89,15 @@ myLayoutHook = tiled ||| Mirror tiled ||| Full
     nmaster = 1
     delta = 3/100
     ratio = 1/2
-                              
-	
+
+--rotView b  = do t <- findWorkspace getSortByTag (bToDir b) NonEmptyWS 1 
+--	windows . greedyView $ t
+--		where bToDir True  = Next
+--			  bToDir False = Prev
+
 myKeys = [
-          ((mod4Mask, xK_Right), nextScreen) 
-        , ((mod4Mask .|. controlMask, xK_Left ), prevScreen)
+          ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 
+        , ((mod4Mask, xK_Left ), moveTo Prev NonEmptyWS)
 	    , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 3%+")
 	    , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 3%-")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
