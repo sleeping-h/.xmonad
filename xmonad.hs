@@ -97,13 +97,13 @@ myLayoutHook = tiled ||| Mirror tiled ||| Full
 
 myKeys = [
           ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 
-        , ((mod4Mask, xK_Left ), moveTo Prev NonEmptyWS)
+        , ((mod4Mask, xK_Left), moveTo Prev NonEmptyWS)
+        , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS) 
+        , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
 	    , ((mod4Mask, xK_KP_Add), spawn "amixer set Master 3%+")
 	    , ((mod4Mask, xK_KP_Subtract), spawn "amixer set Master 3%-")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
          ]
-                   
-
 
 main = do
 	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
