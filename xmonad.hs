@@ -105,6 +105,7 @@ myKeys = [
 	    , ((mod4Mask, xK_F3), spawn "xbacklight -inc 10")
 	    , ((mod4Mask, xK_F2), spawn "xbacklight -dec 10")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
+		, ((mod4Mask, xK_Print), spawn "scrot `~/.xmonad/rename.sh` -z -e 'mv $f ~/screenshots'") 
          ]
 
 main = do
