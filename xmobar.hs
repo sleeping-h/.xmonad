@@ -11,8 +11,8 @@ Config {
   --          , "-w"  , "2"
     --        , "-S"  , "True"
             ] 10
-        ,Run Date "%Y.%m.%d %H:%M:%S" "date" 10
-        ,Run MultiCpu [ "--template" , "<autototal>"
+        ,Run Date "%a %b %_d %H:%M" "date" 10 
+		,Run MultiCpu [ "--template" , "<autototal>"
             , "--Low"      , "50"         -- units: %
             , "--High"     , "85"         -- units: %
             , "--low"      , "#888888"
