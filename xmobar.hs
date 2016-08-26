@@ -29,7 +29,7 @@ Config {
         ,Run Com "bash" ["-c", ".xmonad/getvolume.sh"] "vol" 10
         ,Run Battery [ "--template" , "<fc=#000000><icon=~/.xmonad/icons/text.xbm/></fc> Batt: <left>%"
                      , "--Low"      , "15"        -- units: %
-                     , "--High"     , "70"        -- units: %
+                     , "--High"     , "50"        -- units: %
                      , "--low"      , "#ef5880"
                      , "--normal"   , "#c06aeb"
                      , "--high"     , "#b0d2ff"
