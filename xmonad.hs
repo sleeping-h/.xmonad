@@ -56,13 +56,13 @@ import XMonad.Hooks.FadeInactive
 
 defaults = defaultConfig {
         terminal              = "konsole"
-        , normalBorderColor   = "#202034"
-        , focusedBorderColor  = "#6385aa"        
+        , normalBorderColor   = "#333333"
+        , focusedBorderColor  = "#666666"        
         , workspaces          = myWorkspaces
         , modMask             = mod4Mask
         , startupHook         = myStartupHook
         , layoutHook          = myLayoutHook
-        , borderWidth         = 0 
+        , borderWidth         = 1 
         , handleEventHook     = fullscreenEventHook
 	}`additionalKeys` myKeys
 
@@ -81,19 +81,15 @@ xmobarCurrentWorkspaceColor = myBlue
 
 myStartupHook :: X ()
 
-myStartupHook = spawn "bash ~/.xmonad/startup.sh"
+myStartupHook = spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg"
 
-myLayoutHook = tiled ||| Mirror tiled ||| Full
+myLayoutHook = tiled ||| Mirror tiled ||| Full ||| spiral (89/144)
   where
-    tiled = smartBorders $ gaps [(U,15)] $ Tall nmaster delta ratio 
+    tiled = smartBorders $ gaps [(U,16)] $ Tall nmaster delta ratio 
     nmaster = 1
     delta = 3/100
     ratio = 1/2
 
---rotView b  = do t <- findWorkspace getSortByTag (bToDir b) NonEmptyWS 1 
---	windows . greedyView $ t
---		where bToDir True  = Next
---			  bToDir False = Prev
 
 myKeys = [
           ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 
@@ -105,7 +101,8 @@ myKeys = [
 	    , ((mod4Mask, xK_F3), spawn "xbacklight -inc 10")
 	    , ((mod4Mask, xK_F2), spawn "xbacklight -dec 10")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
-		, ((mod4Mask, xK_Print), spawn "scrot `~/.xmonad/rename.sh` -z -e 'mv $f ~/screenshots'") 
+		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot `~/.xmonad/rename.sh` -s -z -e 'mv $f ~/screenshots'") 
+		, ((0, xK_Print), spawn "scrot `~/.xmonad/rename.sh` -z -e 'mv $f ~/screenshots'") 
          ]
 
 main = do

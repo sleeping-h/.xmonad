@@ -1,6 +1,6 @@
 Config { 
     font = "xft:DejaVu Sans Mono:size=9:book:antialias=true",
-    bgColor = "#202034",
+    bgColor = "#1d1d1d",
     fgColor = "#eeeeee",
     position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
     lowerOnStart = True,
