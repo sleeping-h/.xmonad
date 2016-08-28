@@ -5,7 +5,6 @@ import qualified Data.Map as M
 import System.Exit
 import Graphics.X11.Xlib
 import Graphics.X11.ExtraTypes.XF86
---import IO (Handle, hPutStrLn)
 import qualified System.IO
 import XMonad.Actions.CycleWS (nextScreen,prevScreen)
 import Data.List
@@ -34,20 +33,13 @@ import XMonad.Hooks.EwmhDesktops
 -- Layouts
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.Tabbed
-import XMonad.Layout.DragPane
-import XMonad.Layout.LayoutCombinators hiding ((|||))
 import XMonad.Layout.DecorationMadness
-import XMonad.Layout.TabBarDecoration
-import XMonad.Layout.IM
-import XMonad.Layout.Grid
+import XMonad.Layout.LayoutCombinators hiding ((|||))
 import XMonad.Layout.Spiral
-import XMonad.Layout.Mosaic
 import XMonad.Layout.LayoutHints
 
 import Data.Ratio ((%))
 import XMonad.Layout.ToggleLayouts
-import XMonad.Layout.Spacing
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Gaps
 import XMonad.Hooks.EwmhDesktops
@@ -69,26 +61,20 @@ defaults = defaultConfig {
 
 myWorkspaces :: [String]
 
-myWorkspaces =  ["one","two","three","four","five"] ++ map show [6..9]
+myWorkspaces =  ["one","two","three","four","five","six","seven","eight","nine"] -- ++ map show [6..9]
 
 myBlue = "#b0d2ff"
-
--- Color of current window title in xmobar.
-xmobarTitleColor = myBlue
-
--- Color of current workspace in xmobar.
 xmobarCurrentWorkspaceColor = myBlue
+xmobarTitleColor = myBlue
 
 myStartupHook :: X ()
 
 myStartupHook = spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg"
 
-myLayoutHook = tiled ||| Mirror tiled ||| Full ||| spiral (89/144)
+myLayoutHook = gaps [(U,16)] $ toggleLayouts (Full) $
+    smartBorders $ tiled ||| Mirror tiled ||| spiral (89/144)
   where
-    tiled = smartBorders $ gaps [(U,16)] $ Tall nmaster delta ratio 
-    nmaster = 1
-    delta = 3/100
-    ratio = 1/2
+    tiled = Tall 1 (3/100) (1/2)
 
 
 myKeys = [
@@ -111,7 +97,7 @@ main = do
 	logHook =  dynamicLogWithPP $ defaultPP {
             ppOutput = System.IO.hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "" ""
+          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""  
           , ppSep = "  "
           , ppWsSep = "  "
           , ppLayout = \_ -> ""
