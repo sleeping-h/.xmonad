@@ -6,8 +6,8 @@ import System.Exit
 import Graphics.X11.Xlib
 import Graphics.X11.ExtraTypes.XF86
 import qualified System.IO
-import XMonad.Actions.CycleWS (nextScreen,prevScreen)
 import Data.List
+import Data.Ratio ((%))
  
 -- Prompts
 import XMonad.Prompt
@@ -29,6 +29,9 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.Place
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageHelpers
+--import XMonad.Hooks.SetWMName
+import XMonad.Hooks.FadeInactive
 
 -- Layouts
 import XMonad.Layout.NoBorders
@@ -37,14 +40,9 @@ import XMonad.Layout.DecorationMadness
 import XMonad.Layout.LayoutCombinators hiding ((|||))
 import XMonad.Layout.Spiral
 import XMonad.Layout.LayoutHints
-
-import Data.Ratio ((%))
 import XMonad.Layout.ToggleLayouts
-import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Gaps
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.FadeInactive
+
 
 defaults = defaultConfig {
         terminal              = "konsole"
@@ -61,7 +59,7 @@ defaults = defaultConfig {
 
 myWorkspaces :: [String]
 
-myWorkspaces =  ["one","two","three","four","five","six","seven","eight","nine"] -- ++ map show [6..9]
+myWorkspaces = ["one","two","three","four","five","six","seven","eight","nine"] 
 
 myBlue = "#b0d2ff"
 xmobarCurrentWorkspaceColor = myBlue

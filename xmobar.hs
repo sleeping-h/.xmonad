@@ -11,7 +11,7 @@ Config {
   --          , "-w"  , "2"
     --        , "-S"  , "True"
             ] 10
-        ,Run Date "%a %b %_d %H:%M" "date" 10 
+        ,Run Date "<fc=#b0d2ff>%a %b %d </fc>%H:%M" "date" 10 
 		,Run MultiCpu [ "--template" , "<autototal>"
             , "--Low"      , "50"         -- units: %
             , "--High"     , "85"         -- units: %
@@ -28,6 +28,6 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{ <fc=#b0d2ff>%kbd%</fc>  %vol% %multicpu%  (%dynnetwork%)  %battery%  <fc=#b0d2ff>%date%</fc> "
+    template = " %StdinReader% }{ <fc=#b0d2ff>%kbd%</fc>  %vol% %multicpu%  (%dynnetwork%)  %battery%  %date% "
 }
 
