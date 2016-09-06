@@ -74,6 +74,9 @@ myLayoutHook = gaps [(U,16)] $ toggleLayouts (Full) $
   where
     tiled = Tall 1 (3/100) (1/2)
 
+icon :: String -> String
+
+icon s = "<icon=/home/sleeping/.xmonad/icons/" ++ s ++ "/>"
 
 myKeys = [
           ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 

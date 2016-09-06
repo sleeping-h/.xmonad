@@ -2,14 +2,12 @@ Config {
     font = "xft:DejaVu Sans Mono:size=9:book:antialias=true",
     bgColor = "#1d1d1d",
     fgColor = "#eeeeee",
+--	iconOffset = 0,
     position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
     lowerOnStart = True,
     commands = [
          Run DynNetwork [
              "-t"    ,"<dev>"
---            , "-c"  , " "
-  --          , "-w"  , "2"
-    --        , "-S"  , "True"
             ] 10
         ,Run Date "<fc=#b0d2ff>%a %b %d </fc>%H:%M" "date" 10 
 		,Run MultiCpu [ "--template" , "<autototal>"
@@ -28,6 +26,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{ <fc=#b0d2ff> %kbd%</fc> <icon=/home/sleeping/.xmonad/icons/spkr_01.xbm/> %vol% <icon=/home/sleeping/.xmonad/icons/cpu.xbm/>%multicpu%  <icon=/home/sleeping/.xmonad/icons/wifi_02.xbm/> (%dynnetwork%) <icon=/home/sleeping/.xmonad/icons/bat_low_01.xbm/> %battery%  %date% "
+    template = " %StdinReader% }{<fc=#b0d2ff> %kbd%</fc> <fc=#f6e8b9><icon=/home/sleeping/.xmonad/icons/spkr_01.xbm/></fc> %vol% <fc=#74dea7><icon=/home/sleeping/.xmonad/icons/cpu.xbm/></fc>%multicpu% <fc=#aa77dd> <icon=/home/sleeping/.xmonad/icons/wifi_02.xbm/></fc> (%dynnetwork%) <icon=/home/sleeping/.xmonad/icons/bat_low_01.xbm/> %battery%  %date% "
 }
-
