@@ -28,6 +28,6 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{ <fc=#b0d2ff>%kbd%</fc>  %vol% %multicpu%  (%dynnetwork%)  %battery%  %date% "
+    template = " %StdinReader% }{ <fc=#b0d2ff> %kbd%</fc> <icon=/home/sleeping/.xmonad/icons/spkr_01.xbm/> %vol% <icon=/home/sleeping/.xmonad/icons/cpu.xbm/>%multicpu%  <icon=/home/sleeping/.xmonad/icons/wifi_02.xbm/> (%dynnetwork%) <icon=/home/sleeping/.xmonad/icons/bat_low_01.xbm/> %battery%  %date% "
 }
 
