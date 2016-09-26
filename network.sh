@@ -3,7 +3,7 @@
 n=`nmcli connection show --active | wc -l`
 if [[ $n == 1 ]] 
 	then
-		echo "<fc=#aa0000>disconnected</fc>"
+		echo "<fc=#888888>disconnected</fc>"
 		exit 0
 	fi
 

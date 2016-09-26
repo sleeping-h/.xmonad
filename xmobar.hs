@@ -15,5 +15,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{<fc=#b0d2ff> %kbd%</fc> <fc=#f6e8b9><icon=/home/sleeping/.xmonad/icons/spkr_01.xbm/> %vol% </fc><fc=#74dea7><icon=/home/sleeping/.xmonad/icons/cpu.xbm/> %cpu% </fc> <fc=#f8acbc>%network%</fc> <fc=#d87cec><icon=/home/sleeping/.xmonad/icons/bat_low_01.xbm/> %battery%</fc>  %date% "
+    template = " %StdinReader% }{<fc=#b0d2ff> %kbd%</fc> <fc=#cc9933><icon=/home/sleeping/.xmonad/icons/spkr_01.xbm/> %vol% </fc><fc=#74dea7><icon=/home/sleeping/.xmonad/icons/cpu.xbm/> %cpu% </fc> <fc=#f8acbc>%network%</fc> <fc=#cc9933><icon=/home/sleeping/.xmonad/icons/bat_low_01.xbm/> %battery%</fc>  %date% "
 }

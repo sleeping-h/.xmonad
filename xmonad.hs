@@ -61,9 +61,8 @@ myWorkspaces :: [String]
 
 myWorkspaces = ["one","two","three","four","five","six","seven","eight","nine"] 
 
-myBlue = "#b0d2ff"
-xmobarCurrentWorkspaceColor = myBlue
-xmobarTitleColor = myBlue
+xmobarCurrentWorkspaceColor = "#b0d2ff"
+xmobarTitleColor = "#cc9933"
 
 myStartupHook :: X ()
 
@@ -73,10 +72,6 @@ myLayoutHook = gaps [(U,16)] $ toggleLayouts (Full) $
     smartBorders $ tiled ||| Mirror tiled ||| spiral (89/144)
   where
     tiled = Tall 1 (3/100) (1/2)
-
-icon :: String -> String
-
-icon s = "<icon=/home/sleeping/.xmonad/icons/" ++ s ++ "/>"
 
 myKeys = [
           ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 
