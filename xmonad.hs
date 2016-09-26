@@ -46,8 +46,8 @@ import XMonad.Layout.Gaps
 
 defaults = defaultConfig {
         terminal              = "konsole"
-        , normalBorderColor   = "#333333"
-        , focusedBorderColor  = "#666666"        
+        , normalBorderColor   = "#292929"
+        , focusedBorderColor  = "#554400"--"#034365"        
         , workspaces          = myWorkspaces
         , modMask             = mod4Mask
         , startupHook         = myStartupHook
@@ -81,6 +81,7 @@ icon s = "<icon=/home/sleeping/.xmonad/icons/" ++ s ++ "/>"
 myKeys = [
           ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 
         , ((mod4Mask, xK_Left), moveTo Prev NonEmptyWS)
+        , ((mod4Mask, xK_Up), moveTo Next EmptyWS)
         , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS) 
         , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
 	    , ((mod4Mask, xK_F9), spawn "amixer set Master 3%+")
