@@ -14,8 +14,8 @@ if [[ $device == eth0 ]]
 	then
 		echo "<icon=/home/sleeping/.xmonad/icons/net_wired.xbm/> $name"
 	else
-		level=`nmcli device wifi list | grep $name | awk '{ print $8 }'`
-		echo "$level $name"
+#		level=`nmcli device wifi list | grep $name | awk '{ print $8 }'`
+		echo "<icon=/home/sleeping/.xmonad/icons/net-wifi5.xbm/> $name"
 	fi
 
 exit 0
