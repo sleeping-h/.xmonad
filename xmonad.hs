@@ -39,6 +39,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.DecorationMadness
 import XMonad.Layout.LayoutCombinators hiding ((|||))
 import XMonad.Layout.Spiral
+--import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.Gaps
@@ -61,8 +62,8 @@ myWorkspaces :: [String]
 
 myWorkspaces = ["one","two","three","four","five","six","seven","eight","nine"] 
 
-xmobarCurrentWorkspaceColor = "#b0d2ff"
-xmobarTitleColor = "#cc9933"
+xmobarCurrentWorkspaceColor = "#ccaa88"
+xmobarTitleColor = "#bbbbbb"--"#cc9933"
 
 myStartupHook :: X ()
 
@@ -94,7 +95,7 @@ main = do
 	logHook =  dynamicLogWithPP $ defaultPP {
             ppOutput = System.IO.hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""  
+          , ppCurrent = xmobarColor "#070707" xmobarCurrentWorkspaceColor . pad 
           , ppSep = "  "
           , ppWsSep = "  "
           , ppLayout = \_ -> ""
