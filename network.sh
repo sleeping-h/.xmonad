@@ -12,10 +12,9 @@ device=`nmcli connection show --active | awk '{ print $4 }' | tail -n 1`
 
 if [[ $device == eth0 ]]
 	then
-		echo "<icon=/home/sleeping/.xmonad/icons/net_wired.xbm/> $name"
+		echo "<icon=/home/sleeping/.xmonad/icons/wired.xbm/> $name"
 	else
-#		level=`nmcli device wifi list | grep $name | awk '{ print $8 }'`
-		echo "<icon=/home/sleeping/.xmonad/icons/net-wifi5.xbm/> $name"
+		echo "<icon=/home/sleeping/.xmonad/icons/wifi.xbm/> $name"
 	fi
 
 exit 0
