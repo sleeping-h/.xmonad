@@ -46,7 +46,7 @@ import XMonad.Layout.Gaps
 
 
 defaults = defaultConfig {
-        terminal              = "konsole"
+          terminal            = "konsole"
         , normalBorderColor   = "#292929"
         , focusedBorderColor  = "#554400"--"#034365"        
         , workspaces          = myWorkspaces
@@ -84,9 +84,10 @@ myKeys = [
 	    , ((mod4Mask, xK_F8), spawn "amixer set Master 3%-")
 	    , ((mod4Mask, xK_F3), spawn "xbacklight -inc 10")
 	    , ((mod4Mask, xK_F2), spawn "xbacklight -dec 10")
-        , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/layout.sh")
-		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot `~/.xmonad/rename.sh` -s -z -e 'mv $f ~/screenshots'") 
-		, ((0, xK_Print), spawn "scrot `~/.xmonad/rename.sh` -z -e 'mv $f ~/screenshots'") 
+--	    , ((mod4Mask, xK_T), spawn "konsole")
+        , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/keyboard_layout.sh")
+		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'") 
+		, ((0, xK_Print), spawn "scrot `date +%s`.png -z -e 'mv $f ~/screenshots'") 
          ]
 
 main = do
