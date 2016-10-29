@@ -18,6 +18,7 @@ import XMonad.Actions.MouseGestures
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.GridSelect
 import XMonad.Actions.CycleWS
+
 -- Utils
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Loggers
@@ -30,7 +31,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.Place
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers
---import XMonad.Hooks.SetWMName
+import XMonad.Hooks.SetWMName
 import XMonad.Hooks.FadeInactive
 
 -- Layouts
@@ -67,7 +68,7 @@ xmobarTitleColor = "#bbbbbb"--"#cc9933"
 
 myStartupHook :: X ()
 
-myStartupHook = spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg"
+myStartupHook = setWMName "XMonad" >> spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg"
 
 myLayoutHook = gaps [(U,16)] $ toggleLayouts (Full) $
     smartBorders $ tiled ||| Mirror tiled ||| spiral (89/144)
@@ -84,7 +85,7 @@ myKeys = [
 	    , ((mod4Mask, xK_F8), spawn "amixer set Master 3%-")
 	    , ((mod4Mask, xK_F3), spawn "xbacklight -inc 10")
 	    , ((mod4Mask, xK_F2), spawn "xbacklight -dec 10")
---	    , ((mod4Mask, xK_T), spawn "konsole")
+	    , ((mod4Mask, xK_t), spawn "konsole")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/keyboard_layout.sh")
 		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'") 
 		, ((0, xK_Print), spawn "scrot `date +%s`.png -z -e 'mv $f ~/screenshots'") 
