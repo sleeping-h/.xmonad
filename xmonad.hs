@@ -56,8 +56,10 @@ defaults = defaultConfig {
         , layoutHook          = myLayoutHook
         , borderWidth         = 1 
         , handleEventHook     = fullscreenEventHook
-	}`additionalKeys` myKeys
+	}`additionalKeys` myKeys `additionalKeysP` myEmacsKeys
 
+
+myEmacsKeys = [("M-ц", spawn "konsole")]
 
 myWorkspaces :: [String]
 
@@ -68,25 +70,33 @@ xmobarTitleColor = "#bbbbbb"--"#cc9933"
 
 myStartupHook :: X ()
 
-myStartupHook = setWMName "XMonad" >> spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg"
+myStartupHook = setWMName "XMonad" >> spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg" >> spawn "mkfifo /tmp/mpdpipe"
 
 myLayoutHook = gaps [(U,16)] $ toggleLayouts (Full) $
-    smartBorders $ tiled ||| Mirror tiled ||| spiral (89/144)
+    smartBorders $ tiled ||| resizable ||| Mirror tiled ||| spiral (89/144)
   where
     tiled = Tall 1 (3/100) (1/2)
+    resizable = ResizableTall 1 (3/100) (1/2) []
 
 myKeys = [
           ((mod4Mask, xK_Right), moveTo Next NonEmptyWS) 
         , ((mod4Mask, xK_Left), moveTo Prev NonEmptyWS)
         , ((mod4Mask, xK_Up), moveTo Next EmptyWS)
+        , ((mod4Mask, xK_a), sendMessage MirrorShrink)
+        , ((mod4Mask, xK_z), sendMessage MirrorExpand)
         , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS) 
         , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
 	    , ((0, 0x1008FF13), spawn "amixer set Master 3%+")
 	    , ((0, 0x1008FF11), spawn "amixer set Master 3%-")
 	    , ((0, 0x1008FF12), spawn "amixer set Master 0")
+	    , ((0, 0x1008FF14), spawn "ncmpcpp play")
+	    , ((0, 0x1008FF16), spawn "ncmpcpp prev" >> spawn "bash ~/.xmonad/mpd.sh")
+	    , ((0, 0x1008FF17), spawn "ncmpcpp next" >> spawn "bash ~/.xmonad/mpd.sh")
 	    , ((0, 0x1008FF02), spawn "xbacklight -inc 10")
 	    , ((0, 0x1008FF03), spawn "xbacklight -dec 10")
 	    , ((mod4Mask, xK_w), spawn "konsole")
+	    , ((mod4Mask, xK_d), spawn "dolphin")
+	    , ((mod4Mask, xK_c), spawn "chromium")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/keyboard_layout.sh")
 		, ((controlMask, xK_Print), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'") 
 		, ((0, xK_Print), spawn "scrot `date +%s`.png -z -e 'mv $f ~/screenshots'") 
@@ -97,7 +107,7 @@ main = do
 	xmonad $ defaults {
 	logHook =  dynamicLogWithPP $ defaultPP {
             ppOutput = System.IO.hPutStrLn xmproc
-          , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+          , ppTitle = xmobarColor xmobarTitleColor "" . shorten 70
           , ppCurrent = xmobarColor "#070707" xmobarCurrentWorkspaceColor . pad 
           , ppSep = "  "
           , ppWsSep = "  "
