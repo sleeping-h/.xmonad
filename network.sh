@@ -1,20 +1,18 @@
 #!/bin/bash
 
-n=`nmcli connection show --active | wc -l`
-if [[ $n == 1 ]] 
+if [[ `nmcli connection show --active | wc -l` == 1 ]] 
 	then
 		echo "<fc=#888888>disconnected</fc>"
 		exit 0
+    else 
+        info=`nmcli connection show --active | tail -n 1 | sed -e 's/[[:space:]]*$//'`
 	fi
 
-name=`nmcli connection show --active | awk '{ print $1 }' | tail -n 1`
-device=`nmcli connection show --active | awk '{ print $4 }' | tail -n 1`
+case ${info## *} in
+    eth*|ppp*) icon=wired.xbm ;;
+    *) icon=wifi.xbm ;;
+esac
 
-if [[ $device == eth0 ]]
-	then
-		echo "<icon=/home/sleeping/.xmonad/icons/wired.xbm/> $name"
-	else
-		echo "<icon=/home/sleeping/.xmonad/icons/wifi.xbm/> $name"
-	fi
+echo "<icon=/home/sleeping/.xmonad/icons/$icon/> ${info%% *}"
 
 exit 0
