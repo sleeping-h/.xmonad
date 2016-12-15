@@ -10,12 +10,12 @@ Config {
         ,Run Com "bash" ["-c", ".xmonad/getvolume.sh"] "vol" 10
         ,Run Com "bash" ["-c", ".xmonad/network.sh"] "network" 30
         ,Run Com "bash" ["-c", ".xmonad/battery.sh"] "battery" 10
---        ,Run Com "bash" ["-c", ".xmonad/mpd.sh"] "note" 70
+        ,Run Com "bash" ["-c", ".xmonad/music.sh"] "music" 10
         ,Run Kbd [("ru", "ru"), ("us", "en")]
 --        ,Run MarqueePipeReader "/tmp/mpdpipe" (37, 4, " ♫ ") "music"
         ,Run StdinReader
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = " %StdinReader% }{<fc=#aaaaaa>music</fc> <fc=#b0d2ff> %kbd%</fc> <fc=#cc9933><icon=/home/sleeping/.xmonad/icons/spkr.xbm/> %vol% </fc><fc=#74dea7><icon=/home/sleeping/.xmonad/icons/cpu.xbm/> %cpu% </fc> <fc=#ccaa88>%network%</fc>  <fc=#cc9933><icon=/home/sleeping/.xmonad/icons/battery.xbm/> %battery%</fc>  %date% "
+    template = " %StdinReader% }{<fc=#aaaaaa>%music%</fc> <fc=#b0d2ff> %kbd%</fc> <fc=#cc9933><icon=/home/sleeping/.xmonad/icons/spkr.xbm/> %vol% </fc><fc=#74dea7><icon=/home/sleeping/.xmonad/icons/cpu.xbm/> %cpu% </fc> <fc=#ccaa88>%network%</fc>  <fc=#cc9933><icon=/home/sleeping/.xmonad/icons/battery.xbm/> %battery%</fc>  %date% "
 }
