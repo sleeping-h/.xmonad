@@ -67,10 +67,10 @@ xmobarTitleColor = "#bbbbbb"--"#cc9933"
 
 myStartupHook :: X ()
 
-myStartupHook = setWMName "XMonad" >> spawn "feh  --bg-fill ~/.xmonad/wallpaper.jpg" 
+myStartupHook = setWMName "XMonad" 
 
 myLayoutHook = gaps [(U,16)] $ toggleLayouts (Full) $
-    smartBorders $ tiled ||| resizable ||| Mirror tiled ||| spiral (89/144)
+    smartBorders $ resizable ||| Mirror tiled ||| spiral (89/144)
   where
     tiled = Tall 1 (3/100) (1/2)
     resizable = ResizableTall 1 (3/100) (1/2) []
@@ -87,8 +87,8 @@ myKeys = [
 	    , ((0, 0x1008FF11), spawn "amixer set Master 3%-")
 	    , ((0, 0x1008FF12), spawn "amixer set Master 0")
 	    , ((0, 0x1008FF14), spawn "ncmpcpp toggle")
-	    , ((0, 0x1008FF16), spawn "ncmpcpp prev") -- >> spawn "bash ~/.xmonad/mpd.sh")
-	    , ((0, 0x1008FF17), spawn "ncmpcpp next") -- >> spawn "bash ~/.xmonad/mpd.sh")
+	    , ((0, 0x1008FF16), spawn "ncmpcpp prev") 
+	    , ((0, 0x1008FF17), spawn "ncmpcpp next")
 	    , ((0, 0x1008FF02), spawn "xbacklight -inc 10")
 	    , ((0, 0x1008FF03), spawn "xbacklight -dec 10")
 	    , ((mod4Mask, xK_w), spawn "konsole")
