@@ -2,7 +2,7 @@ Config {
     font = "xft:DejaVu Sans Mono:size=9:book:antialias=true",
     bgColor = "#1d1d1d",
     fgColor = "#ccaa88",
-    position = Static { xpos = 0, ypos = 0, width = 1366, height = 16 },
+    position = Static { xpos = 0, ypos = 0, width = 1368, height = 16 },
     lowerOnStart = True,
     commands = [
          Run Date "<fc=#b0d2ff>%a %b %d </fc><fc=#ccaa88>%H:%M</fc>" "date" 10 
@@ -12,7 +12,6 @@ Config {
         ,Run Com "bash" ["-c", ".xmonad/battery.sh"] "battery" 10
         ,Run Com "bash" ["-c", ".xmonad/music.sh"] "music" 10
         ,Run Kbd [("ru", "ru"), ("us", "en")]
---        ,Run MarqueePipeReader "/tmp/mpdpipe" (37, 4, " ♫ ") "music"
         ,Run StdinReader
     ],
     sepChar = "%",

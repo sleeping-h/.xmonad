@@ -91,7 +91,7 @@ myKeys = [
 	    , ((0, 0x1008FF17), spawn "ncmpcpp next")
 	    , ((0, 0x1008FF02), spawn "xbacklight -inc 10")
 	    , ((0, 0x1008FF03), spawn "xbacklight -dec 10")
-	    , ((mod4Mask, xK_w), spawn "konsole")
+	    , ((mod4Mask, xK_y), spawn "konsole")
 	    , ((mod4Mask, xK_d), spawn "dolphin")
 	    , ((mod4Mask, xK_c), spawn "chromium")
         , ((mod1Mask, xK_space), spawn "bash ~/.xmonad/keyboard_layout.sh")
@@ -105,7 +105,9 @@ main = do
 	logHook =  dynamicLogWithPP $ defaultPP {
             ppOutput = System.IO.hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 70
-          , ppCurrent = xmobarColor "#070707" xmobarCurrentWorkspaceColor . pad 
+          , ppCurrent = xmobarColor "#070707" xmobarCurrentWorkspaceColor . pad
+          --, ppCurrent = xmobarColor "#070707" xmobarCurrentWorkspaceColor . wrap "<icon=/home/sleeping/.xmonad/icons/wifi.xbm/>" "<icon=/home/sleeping/.xmonad/icons/wifi.xbm/>"
+          , ppVisible = xmobarColor "#070707" xmobarCurrentWorkspaceColor . wrap "║" "║"
           , ppSep = "  "
           , ppWsSep = "  "
           , ppLayout = \_ -> ""
