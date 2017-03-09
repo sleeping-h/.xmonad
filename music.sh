@@ -1,5 +1,6 @@
 #!/bin/bash
 
+len=37
 song=$( ncmpcpp --now-playing )
 test -z $song && exit 0
 
@@ -8,7 +9,7 @@ state=${state#* }
 test "pause" == $state && icon=▮▮ || icon=▶
 
 song=${song#* }
-[[ 30 -gt ${#song} ]] && echo $icon "$song" && exit 0 || len=30
+[[ $len -gt ${#song} ]] && echo $icon "$song" && exit 0
 max_offset=$(( ${#song} - len ))
 
 offset=$(( $( date +%s ) % (2 * max_offset) ))
