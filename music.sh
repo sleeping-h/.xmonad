@@ -2,7 +2,7 @@
 
 len=37
 song=$( ncmpcpp --now-playing )
-test -z $song && exit 0
+test -z "$song" && exit 0
 
 state=$( cat ~/.mpd/state | sed '3q;d' )
 state=${state#* }
