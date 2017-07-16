@@ -1,14 +1,13 @@
 #!/bin/bash
 
 len=37
-song=$( ncmpcpp --now-playing )
+song=$( mpc current )
 test -z "$song" && exit 0
 
-state=$( cat ~/.mpd/state | sed '3q;d' )
-state=${state#* }
-test "pause" == $state && icon=▮▮ || icon=▶
+state=$( mpc status | sed '2q;d' )
+state=${state%% *}
+test "[paused]" == $state && icon="<fn=1>▮▮</fn>" || icon="<fn=2>▶</fn>"
 
-song=${song#* }
 [[ $len -gt ${#song} ]] && echo $icon "$song" && exit 0
 max_offset=$(( ${#song} - len ))
 
