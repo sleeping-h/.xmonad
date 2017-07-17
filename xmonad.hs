@@ -100,11 +100,12 @@ myKeys = [ ((mod4Mask, xK_Right), moveTo Next NonEmptyWS)
 
 -- colors
 
+xmobarFg    = "#bbbbdd"--"#cc9933"
 xmobarBg    = "#10101c"
 blockColor  = "#23233a"
 myColor     = "#9999ff"
 iconColor   = "#7777cc"
-aAAaAAA     = "#aaaaaa"
+aAAaAAA     = "#aaaac0"
 
 -- icons
 
@@ -116,9 +117,8 @@ rightCnr' = icon "cnr_right_.xbm"
 
 -- xmobar
 
-xmobarTitleColor = "#bbbbbb"--"#cc9933"
-
-block leftIcon rightIcon fg bg fontColor = xmobarColor fontColor fg . wrap (wrapIcon leftIcon) (wrapIcon rightIcon)
+block leftIcon rightIcon fg bg fontColor =
+    xmobarColor fontColor fg . wrap (wrapIcon leftIcon) (wrapIcon rightIcon)
     where wrapIcon = xmobarColor fg bg
 
 leftBlock = block leftCnr rightCnr
@@ -129,23 +129,23 @@ xmobarCommands = [ xmobarColor myColor blockColor "<fn=2>%kbd%</fn>"
                  , colorIcon "spkr.xbm" ++ " %vol%"
                  , colorIcon "cpu.xbm" ++ "%cpu%"
                  , colorIcon "battery.xbm" ++ " %battery%"
---               , "%wifi%"
+                 , xmobarColor myColor blockColor "IPv4" ++ " %network%"
                  , xmobarColor aAAaAAA blockColor "%date%"
-                 , xmobarColor "#dddddd" blockColor "%time%"
+                 , xmobarColor "#ddddee" blockColor "%time%"
                  ]
 
-xmobarRight = (foldl (++) "" . map (rightBlock blockColor xmobarBg aAAaAAA)) xmobarCommands
-xmobarTemplate = wrap "\"%StdinReader% }{ %music%  " " \""  xmobarRight
-
+xmobarRight = (foldl (++) "" . map rightBlock') xmobarCommands
+    where rightBlock' = rightBlock blockColor xmobarBg aAAaAAA
+xmobarTemplate = "%StdinReader% }{ %music%  " ++ xmobarRight
+xmobarPipe = "/usr/bin/xmobar -t \"" ++ xmobarTemplate ++ "\" ~/.xmonad/xmobar.hs"
 
 -- main
 
-main = do
-    xmproc <- spawnPipe $ "/usr/bin/xmobar -t " ++ xmobarTemplate ++ " ~/.xmonad/xmobar.hs"
+main = spawnPipe xmobarPipe >>= \xmproc ->
     xmonad $ defaults {
         logHook =  dynamicLogWithPP $ defaultPP
           { ppOutput    = System.IO.hPutStrLn xmproc
-          , ppTitle     = xmobarColor xmobarTitleColor "" . shorten 70
+          , ppTitle     = xmobarColor xmobarFg "" . shorten 70
           , ppCurrent   = leftBlock blockColor xmobarBg myColor
           , ppHidden    = leftBlock blockColor xmobarBg aAAaAAA
           , ppVisible   = leftBlock blockColor xmobarBg "#ffffff"
@@ -157,4 +157,3 @@ main = do
 } where showNamedWorkspaces wsId = if any (`elem` wsId) ['a'..'z']
                                        then pad wsId
                                        else ""
-
