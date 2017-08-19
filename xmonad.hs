@@ -73,7 +73,9 @@ myLayoutHook = gaps [(U, 17)] $ toggleLayouts (Full) $ smartBorders $
   where
     tiled = avoidStruts $ Mirror $ Tall 1 (3/100) (1/2)
     resizable = avoidStruts $ ResizableTall 1 (3/100) (1/2) []
-    resizable' = avoidStruts $ spacing 3 $ gaps [(U, 3), (D, 3), (R, 3), (L, 3)] $ ResizableTall 1 (3/100) (1/2) []
+    resizable' = let x = 15 in avoidStruts $ spacing x $
+                 gaps [(U, x), (D, x), (R, x), (L, x)] $
+                 ResizableTall 1 (3/100) (1/2) []
 
 myKeys = [ ((mod4Mask, xK_Right), moveTo Next NonEmptyWS)
          , ((mod4Mask, xK_Left), moveTo Prev NonEmptyWS)
@@ -83,9 +85,9 @@ myKeys = [ ((mod4Mask, xK_Right), moveTo Next NonEmptyWS)
          , ((mod4Mask, xK_g), goToSelected defaultGSConfig)
          , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext >> nextWS)
          , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev >> prevWS)
-         , ((0, 0x1008FF13), spawn "pactl set-sink-volume 0 +3%")
-         , ((0, 0x1008FF11), spawn "pactl set-sink-volume 0 -3%")
-         , ((0, 0x1008FF12), spawn "pactl set-sink-mute 0 toggle")
+         , ((0, 0x1008FF13), spawn "pactl set-sink-volume 1 +3%")
+         , ((0, 0x1008FF11), spawn "pactl set-sink-volume 1 -3%")
+         , ((0, 0x1008FF12), spawn "pactl set-sink-mute 1 toggle")
          , ((0, 0x1008FF14), spawn "mpc toggle")
          , ((0, 0x1008FF16), spawn "mpc prev")
          , ((0, 0x1008FF17), spawn "mpc next")
@@ -105,7 +107,7 @@ xmobarBg    = "#10101c"
 blockColor  = "#23233a"
 myColor     = "#9999ff"
 iconColor   = "#7777cc"
-aAAaAAA     = "#aaaac0"
+aaaaaa      = "#aaaac0"
 
 -- icons
 
@@ -130,12 +132,12 @@ xmobarCommands = [ xmobarColor myColor blockColor "<fn=2>%kbd%</fn>"
                  , colorIcon "cpu.xbm" ++ "%cpu%"
                  , colorIcon "battery.xbm" ++ " %battery%"
                  , xmobarColor myColor blockColor "IPv4" ++ " %network%"
-                 , xmobarColor aAAaAAA blockColor "%date%"
+                 , xmobarColor aaaaaa blockColor "%date%"
                  , xmobarColor "#ddddee" blockColor "%time%"
                  ]
 
 xmobarRight = (foldl (++) "" . map rightBlock') xmobarCommands
-    where rightBlock' = rightBlock blockColor xmobarBg aAAaAAA
+    where rightBlock' = rightBlock blockColor xmobarBg aaaaaa
 xmobarTemplate = "%StdinReader% }{ %music%  " ++ xmobarRight
 xmobarPipe = "/usr/bin/xmobar -t \"" ++ xmobarTemplate ++ "\" ~/.xmonad/xmobar.hs"
 
@@ -147,7 +149,7 @@ main = spawnPipe xmobarPipe >>= \xmproc ->
           { ppOutput    = System.IO.hPutStrLn xmproc
           , ppTitle     = xmobarColor xmobarFg "" . shorten 70
           , ppCurrent   = leftBlock blockColor xmobarBg myColor
-          , ppHidden    = leftBlock blockColor xmobarBg aAAaAAA
+          , ppHidden    = leftBlock blockColor xmobarBg aaaaaa
           , ppVisible   = leftBlock blockColor xmobarBg "#ffffff"
           , ppSep       = "  " -- between WSs and title
           , ppWsSep     = ""

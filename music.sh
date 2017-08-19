@@ -1,18 +1,19 @@
 #!/bin/bash
 
-len=37
+len=34
+ar_len=17
 song=$( mpc current )
 test -z "$song" && exit 0
+
+artist=${song%% - *}
+track=${song##* - }
 
 state=$( mpc status | sed '2q;d' )
 state=${state%% *}
 test "[paused]" == $state && icon="<fn=1>▮▮</fn>" || icon="<fn=2>▶</fn>"
 
-[[ $len -gt ${#song} ]] && echo $icon "$song" && exit 0
-max_offset=$(( ${#song} - len ))
-
-offset=$(( $( date +%s ) % (2 * max_offset) ))
-[[ $offset -gt $max_offset ]] && offset=$((2 * max_offset - offset))
-echo $icon "${song:$offset:$len}"
+[[ $ar_len -lt ${#artist} ]] && artist=${artist:0:$ar_len}..
+[[ $len -lt $((${#track}+${#artist})) ]] && track=${track:0:$((len-${#artist}))}..
+echo $icon "<fc=#eeeeff>$artist</fc>" ─ $track && exit 0
 
 exit 0
